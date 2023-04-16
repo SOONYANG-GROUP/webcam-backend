@@ -104,6 +104,11 @@ io.on("connection", socket => {
         }
         socket.to(roomID).emit("user_exit", { id: socket.id });
     });
+
+    socket.on("send_message", (data) => {
+        console.log(data);
+        socket.to(data.room).emit("received_message", data);
+    })
 });
 
 const PORT = process.env.PORT || 5000;
